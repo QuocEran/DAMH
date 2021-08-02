@@ -1,0 +1,495 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DiscountCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DiscountCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="Used" Type="bit" />
+          <Property Name="UsingDate" Type="datetime" />
+          <Property Name="User" Type="int" />
+          <Property Name="Print" Type="bit" />
+          <Property Name="numberUsing" Type="int" />
+          <Property Name="hinhThucThanhToan" Type="int" />
+        </EntityType>
+        <EntityType Name="LichSuIn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ngayCapNhat" Type="datetime" />
+          <Property Name="mauIn" Type="int" />
+          <Property Name="nguoiIn" Type="int" />
+          <Property Name="ghiChu" Type="nvarchar" MaxLength="100" />
+          <Property Name="hinhThucThanhToan" Type="int" />
+        </EntityType>
+        <EntityType Name="MauIn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="100" />
+          <Property Name="ngayCapNhat" Type="datetime" />
+          <Property Name="fileMau" Type="uniqueidentifier" />
+          <Property Name="anhMauIn" Type="varbinary(max)" />
+          <Property Name="fileID" Type="nvarchar" MaxLength="100" />
+          <Property Name="price" Type="nvarchar" MaxLength="100" />
+          <Property Name="ContentFile" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Printer">
+          <Key>
+            <PropertyRef Name="maMay" />
+          </Key>
+          <Property Name="maMay" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenMay" Type="nvarchar" MaxLength="100" />
+          <Property Name="soGiayHienTai" Type="int" />
+          <Property Name="anh" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="RFID">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rfid" Type="nvarchar" MaxLength="100" />
+          <Property Name="price" Type="float" />
+          <Property Name="userInfo" Type="int" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="STT" />
+          </Key>
+          <Property Name="STT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenNguoiDung" Type="nvarchar" MaxLength="100" />
+          <Property Name="MSSV" Type="nvarchar" MaxLength="100" />
+          <Property Name="khoa" Type="int" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+          <Property Name="ngaySinh" Type="datetime" />
+          <Property Name="ghiChu" Type="nvarchar" MaxLength="100" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="100" />
+          <Property Name="anh" Type="varbinary(max)" />
+          <Property Name="gioiTinh" Type="int" />
+          <Property Name="diaChi" Type="nvarchar" MaxLength="100" />
+          <Property Name="khoaString" Type="nvarchar" MaxLength="100" />
+          <Property Name="password" Type="nvarchar" MaxLength="100" />
+          <Property Name="kichHoat" Type="bit" />
+          <Property Name="gioiTinhString" Type="nvarchar" MaxLength="100" />
+          <Property Name="theThanhToan" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_DiscountCode_User">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+          <End Role="DiscountCode" Type="Self.DiscountCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="STT" />
+            </Principal>
+            <Dependent Role="DiscountCode">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LichSuIn_mauIn">
+          <End Role="MauIn" Type="Self.MauIn" Multiplicity="0..1" />
+          <End Role="LichSuIn" Type="Self.LichSuIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MauIn">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LichSuIn">
+              <PropertyRef Name="mauIn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LichSuIn_nguoiIn">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+          <End Role="LichSuIn" Type="Self.LichSuIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="STT" />
+            </Principal>
+            <Dependent Role="LichSuIn">
+              <PropertyRef Name="nguoiIn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RFID_userInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+          <End Role="RFID" Type="Self.RFID" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="STT" />
+            </Principal>
+            <Dependent Role="RFID">
+              <PropertyRef Name="userInfo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DBModelsStoreContainer">
+          <EntitySet Name="DiscountCode" EntityType="Self.DiscountCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LichSuIn" EntityType="Self.LichSuIn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MauIn" EntityType="Self.MauIn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Printer" EntityType="Self.Printer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RFID" EntityType="Self.RFID" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DiscountCode_User" Association="Self.FK_DiscountCode_User">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="DiscountCode" EntitySet="DiscountCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LichSuIn_mauIn" Association="Self.FK_LichSuIn_mauIn">
+            <End Role="MauIn" EntitySet="MauIn" />
+            <End Role="LichSuIn" EntitySet="LichSuIn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LichSuIn_nguoiIn" Association="Self.FK_LichSuIn_nguoiIn">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="LichSuIn" EntitySet="LichSuIn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RFID_userInfo" Association="Self.FK_RFID_userInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="RFID" EntitySet="RFID" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModels" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ACIMAppEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="DiscountCodes" EntityType="DBModels.DiscountCode" />
+          <EntitySet Name="LichSuIns" EntityType="DBModels.LichSuIn" />
+          <EntitySet Name="MauIns" EntityType="DBModels.MauIn" />
+          <EntitySet Name="Printers" EntityType="DBModels.Printer" />
+          <EntitySet Name="RFIDs" EntityType="DBModels.RFID" />
+          <EntitySet Name="UserInfoes" EntityType="DBModels.UserInfo" />
+          <AssociationSet Name="FK_DiscountCode_User" Association="DBModels.FK_DiscountCode_User">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="DiscountCode" EntitySet="DiscountCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LichSuIn_mauIn" Association="DBModels.FK_LichSuIn_mauIn">
+            <End Role="MauIn" EntitySet="MauIns" />
+            <End Role="LichSuIn" EntitySet="LichSuIns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LichSuIn_nguoiIn" Association="DBModels.FK_LichSuIn_nguoiIn">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="LichSuIn" EntitySet="LichSuIns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RFID_userInfo" Association="DBModels.FK_RFID_userInfo">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="RFID" EntitySet="RFIDs" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="DiscountCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DiscountCode1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Used" Type="Boolean" />
+          <Property Name="UsingDate" Type="DateTime" Precision="3" />
+          <Property Name="User" Type="Int32" />
+          <Property Name="Print" Type="Boolean" />
+          <Property Name="numberUsing" Type="Int32" />
+          <Property Name="hinhThucThanhToan" Type="Int32" />
+          <NavigationProperty Name="UserInfo" Relationship="DBModels.FK_DiscountCode_User" FromRole="DiscountCode" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="LichSuIn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ngayCapNhat" Type="DateTime" Precision="3" />
+          <Property Name="mauIn" Type="Int32" />
+          <Property Name="nguoiIn" Type="Int32" />
+          <Property Name="ghiChu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="hinhThucThanhToan" Type="Int32" />
+          <NavigationProperty Name="MauIn1" Relationship="DBModels.FK_LichSuIn_mauIn" FromRole="LichSuIn" ToRole="MauIn" />
+          <NavigationProperty Name="UserInfo" Relationship="DBModels.FK_LichSuIn_nguoiIn" FromRole="LichSuIn" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="MauIn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ten" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ngayCapNhat" Type="DateTime" Precision="3" />
+          <Property Name="fileMau" Type="Guid" />
+          <Property Name="anhMauIn" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="fileID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContentFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="LichSuIns" Relationship="DBModels.FK_LichSuIn_mauIn" FromRole="MauIn" ToRole="LichSuIn" />
+        </EntityType>
+        <EntityType Name="Printer">
+          <Key>
+            <PropertyRef Name="maMay" />
+          </Key>
+          <Property Name="maMay" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenMay" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="soGiayHienTai" Type="Int32" />
+          <Property Name="anh" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="RFID">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rfid1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Double" />
+          <Property Name="userInfo" Type="Int32" />
+          <NavigationProperty Name="UserInfo1" Relationship="DBModels.FK_RFID_userInfo" FromRole="RFID" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="STT" />
+          </Key>
+          <Property Name="STT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenNguoiDung" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MSSV" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="khoa" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ngaySinh" Type="DateTime" Precision="3" />
+          <Property Name="ghiChu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="anh" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="gioiTinh" Type="Int32" />
+          <Property Name="diaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="khoaString" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="kichHoat" Type="Boolean" />
+          <Property Name="gioiTinhString" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="theThanhToan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DiscountCodes" Relationship="DBModels.FK_DiscountCode_User" FromRole="UserInfo" ToRole="DiscountCode" />
+          <NavigationProperty Name="LichSuIns" Relationship="DBModels.FK_LichSuIn_nguoiIn" FromRole="UserInfo" ToRole="LichSuIn" />
+          <NavigationProperty Name="RFIDs" Relationship="DBModels.FK_RFID_userInfo" FromRole="UserInfo" ToRole="RFID" />
+        </EntityType>
+        <Association Name="FK_DiscountCode_User">
+          <End Type="DBModels.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+          <End Type="DBModels.DiscountCode" Role="DiscountCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="STT" />
+            </Principal>
+            <Dependent Role="DiscountCode">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LichSuIn_mauIn">
+          <End Type="DBModels.MauIn" Role="MauIn" Multiplicity="0..1" />
+          <End Type="DBModels.LichSuIn" Role="LichSuIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MauIn">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LichSuIn">
+              <PropertyRef Name="mauIn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LichSuIn_nguoiIn">
+          <End Type="DBModels.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+          <End Type="DBModels.LichSuIn" Role="LichSuIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="STT" />
+            </Principal>
+            <Dependent Role="LichSuIn">
+              <PropertyRef Name="nguoiIn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RFID_userInfo">
+          <End Type="DBModels.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+          <End Type="DBModels.RFID" Role="RFID" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="STT" />
+            </Principal>
+            <Dependent Role="RFID">
+              <PropertyRef Name="userInfo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBModelsStoreContainer" CdmEntityContainer="ACIMAppEntities">
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="DBModels.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="DBModels.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="DBModels.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="DBModels.Store.sp_helpdiagramdefinition" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="DBModels.Store.sp_helpdiagrams" />
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DBModels.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DBModels.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="DiscountCodes">
+            <EntityTypeMapping TypeName="DBModels.DiscountCode">
+              <MappingFragment StoreEntitySet="DiscountCode">
+                <ScalarProperty Name="hinhThucThanhToan" ColumnName="hinhThucThanhToan" />
+                <ScalarProperty Name="numberUsing" ColumnName="numberUsing" />
+                <ScalarProperty Name="Print" ColumnName="Print" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="UsingDate" ColumnName="UsingDate" />
+                <ScalarProperty Name="Used" ColumnName="Used" />
+                <ScalarProperty Name="DiscountCode1" ColumnName="DiscountCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LichSuIns">
+            <EntityTypeMapping TypeName="DBModels.LichSuIn">
+              <MappingFragment StoreEntitySet="LichSuIn">
+                <ScalarProperty Name="hinhThucThanhToan" ColumnName="hinhThucThanhToan" />
+                <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
+                <ScalarProperty Name="nguoiIn" ColumnName="nguoiIn" />
+                <ScalarProperty Name="mauIn" ColumnName="mauIn" />
+                <ScalarProperty Name="ngayCapNhat" ColumnName="ngayCapNhat" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MauIns">
+            <EntityTypeMapping TypeName="DBModels.MauIn">
+              <MappingFragment StoreEntitySet="MauIn">
+                <ScalarProperty Name="ContentFile" ColumnName="ContentFile" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="fileID" ColumnName="fileID" />
+                <ScalarProperty Name="anhMauIn" ColumnName="anhMauIn" />
+                <ScalarProperty Name="fileMau" ColumnName="fileMau" />
+                <ScalarProperty Name="ngayCapNhat" ColumnName="ngayCapNhat" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Printers">
+            <EntityTypeMapping TypeName="DBModels.Printer">
+              <MappingFragment StoreEntitySet="Printer">
+                <ScalarProperty Name="anh" ColumnName="anh" />
+                <ScalarProperty Name="soGiayHienTai" ColumnName="soGiayHienTai" />
+                <ScalarProperty Name="TenMay" ColumnName="TenMay" />
+                <ScalarProperty Name="maMay" ColumnName="maMay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RFIDs">
+            <EntityTypeMapping TypeName="DBModels.RFID">
+              <MappingFragment StoreEntitySet="RFID">
+                <ScalarProperty Name="userInfo" ColumnName="userInfo" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="rfid1" ColumnName="rfid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInfoes">
+            <EntityTypeMapping TypeName="DBModels.UserInfo">
+              <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="theThanhToan" ColumnName="theThanhToan" />
+                <ScalarProperty Name="gioiTinhString" ColumnName="gioiTinhString" />
+                <ScalarProperty Name="kichHoat" ColumnName="kichHoat" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="khoaString" ColumnName="khoaString" />
+                <ScalarProperty Name="diaChi" ColumnName="diaChi" />
+                <ScalarProperty Name="gioiTinh" ColumnName="gioiTinh" />
+                <ScalarProperty Name="anh" ColumnName="anh" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
+                <ScalarProperty Name="ngaySinh" ColumnName="ngaySinh" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="khoa" ColumnName="khoa" />
+                <ScalarProperty Name="MSSV" ColumnName="MSSV" />
+                <ScalarProperty Name="TenNguoiDung" ColumnName="TenNguoiDung" />
+                <ScalarProperty Name="STT" ColumnName="STT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
