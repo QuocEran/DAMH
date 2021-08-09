@@ -60,6 +60,7 @@ namespace demo1.User_forms
             }
             else
             {
+                label1.Text = currentRfid.UserInfo1.TenNguoiDung;
                 lbMoney.Text = String.Format("{0:### ### ###.##}" + " VND", currentRfid.price);
                 lbMoney.ForeColor = Color.Gold;
             }

@@ -55,7 +55,7 @@
             this.btnPrint.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrint.Location = new System.Drawing.Point(373, 19);
             this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(162, 57);
+            this.btnPrint.Size = new System.Drawing.Size(161, 57);
             this.btnPrint.TabIndex = 0;
             this.btnPrint.Text = "In";
             this.btnPrint.UseVisualStyleBackColor = true;
@@ -101,8 +101,8 @@
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(280, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
@@ -128,7 +128,7 @@
             this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.8959F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.1041F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 89F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112F));
             this.tableLayoutPanel3.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.label3, 2, 0);
@@ -159,9 +159,9 @@
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(320, 0);
+            this.label3.Location = new System.Drawing.Point(319, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 30);
+            this.label3.Size = new System.Drawing.Size(85, 30);
             this.label3.TabIndex = 1;
             this.label3.Text = "VND";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -174,7 +174,7 @@
             this.txbAmount.Location = new System.Drawing.Point(158, 3);
             this.txbAmount.Multiline = true;
             this.txbAmount.Name = "txbAmount";
-            this.txbAmount.Size = new System.Drawing.Size(156, 24);
+            this.txbAmount.Size = new System.Drawing.Size(155, 24);
             this.txbAmount.TabIndex = 2;
             this.txbAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -184,7 +184,7 @@
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.80907F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.19093F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 164F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 165F));
             this.tableLayoutPanel4.Controls.Add(this.btnPrint, 1, 1);
             this.tableLayoutPanel4.Controls.Add(this.btn_cancel, 2, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -202,9 +202,9 @@
             this.btn_cancel.AutoSize = true;
             this.btn_cancel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_cancel.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_cancel.Location = new System.Drawing.Point(541, 19);
+            this.btn_cancel.Location = new System.Drawing.Point(540, 19);
             this.btn_cancel.Name = "btn_cancel";
-            this.btn_cancel.Size = new System.Drawing.Size(159, 57);
+            this.btn_cancel.Size = new System.Drawing.Size(160, 57);
             this.btn_cancel.TabIndex = 1;
             this.btn_cancel.Text = "Thoát";
             this.btn_cancel.UseVisualStyleBackColor = true;

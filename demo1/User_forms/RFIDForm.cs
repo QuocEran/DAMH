@@ -138,6 +138,7 @@ namespace demo1.User_forms
 
             btnPrint.Enabled = true;
             panelImage.BackgroundImage = OkRFID;
+            label1.Text = "Xin chào " + currentRfid.UserInfo1.TenNguoiDung +" !";
             txbAmount.Text = String.Format("{0:### ### ###.##}", currentRfid.price);
 
             player.SoundLocation = @"AudioRecord\Update\7.wav";
@@ -220,7 +221,6 @@ namespace demo1.User_forms
                 srv.Print();
 
             }
-            SendEmailToUser();
             UpdateModel();
 
         }
@@ -244,57 +244,57 @@ namespace demo1.User_forms
             currentMauIn.LichSuIns.Add(lichSuIn);
             db.SaveChanges();
         }
-        private void SendEmailToUser()
-        {
-            try
-            {
-                MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+        //private void SendEmailToUser()
+        //{
+        //    try
+        //    {
+        //        MailMessage mail = new MailMessage();
+        //        SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-                mail.From = new MailAddress("acimbku@gmail.com");
+        //        mail.From = new MailAddress("acimbku@gmail.com");
 
-                mail.To.Add(currentRfid.UserInfo1.email);
+        //        mail.To.Add(currentRfid.UserInfo1.email);
 
-                string userNameMail;
-                if (userInfoUI.FullName == "")
-                {
-                    userNameMail = currentRfid.UserInfo1.TenNguoiDung;
-                }
-                else userNameMail = userInfoUI.FullName;
+        //        string userNameMail;
+        //        if (userInfoUI.FullName == "")
+        //        {
+        //            userNameMail = currentRfid.UserInfo1.TenNguoiDung;
+        //        }
+        //        else userNameMail = userInfoUI.FullName;
 
-                mail.Subject = "Máy In Mẫu Đơn Tự Động thông báo kết quả in";
+        //        mail.Subject = "Máy In Mẫu Đơn Tự Động thông báo kết quả in";
 
-                string mailBody = "Chào bạn " + userNameMail + ",\n\nMáy In Mẫu Đơn Tự Động - ACIM xin chân thành cảm ơn bạn đã quan tâm và sử dụng dịch vụ. Hệ thống xin thông báo kết quả của giao dịch:\n\n1. Người dùng: " + userNameMail + "\n2. Mẫu đơn: " + currentMauIn.Ten + " - " + currentMauIn.fileID + "\n3. Thời gian: " + DateTime.Now.ToString("dd-MM-yyyy HH:mm tt") + "\n4. Hình thức thanh toán: THẺ SINH VIÊN\n5. Trạng thái: IN THÀNH CÔNG\n\nMột lần nữa, hệ thống Máy In Mẫu Đơn Tự Động – ACIM xin cảm ơn bạn đã sử dụng dịch vụ. Nếu có thắc mắc hoặc góp ý đối với hệ thống, xin vui lòng gửi email đến acimbku@gmail.com hoặc gọi đến số điện thoại (+84) 344 820 033.\n\nTrân trọng,\nNgười quản lý hệ thống";
+        //        string mailBody = "Chào bạn " + userNameMail + ",\n\nMáy In Mẫu Đơn Tự Động - ACIM xin chân thành cảm ơn bạn đã quan tâm và sử dụng dịch vụ. Hệ thống xin thông báo kết quả của giao dịch:\n\n1. Người dùng: " + userNameMail + "\n2. Mẫu đơn: " + currentMauIn.Ten + " - " + currentMauIn.fileID + "\n3. Thời gian: " + DateTime.Now.ToString("dd-MM-yyyy HH:mm tt") + "\n4. Hình thức thanh toán: THẺ SINH VIÊN\n5. Trạng thái: IN THÀNH CÔNG\n\nMột lần nữa, hệ thống Máy In Mẫu Đơn Tự Động – ACIM xin cảm ơn bạn đã sử dụng dịch vụ. Nếu có thắc mắc hoặc góp ý đối với hệ thống, xin vui lòng gửi email đến acimbku@gmail.com hoặc gọi đến số điện thoại (+84) 344 820 033.\n\nTrân trọng,\nNgười quản lý hệ thống";
 
-                mail.Body = mailBody;
+        //        mail.Body = mailBody;
 
-                SmtpServer.Port = 587;
-                SmtpServer.EnableSsl = true;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("acimbku@gmail.com", "acim2020");
-                //SmtpServer.DeliveryMethod(false);
+        //        SmtpServer.Port = 587;
+        //        SmtpServer.EnableSsl = true;
+        //        SmtpServer.Credentials = new System.Net.NetworkCredential("acimbku@gmail.com", "acim2020");
+        //        //SmtpServer.DeliveryMethod(false);
 
-                SmtpServer.Send(mail);
-            }
-            catch { }
-            try
-            {
-                MailMessage mail1 = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+        //        SmtpServer.Send(mail);
+        //    }
+        //    catch { }
+        //    try
+        //    {
+        //        MailMessage mail1 = new MailMessage();
+        //        SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-                mail1.From = new MailAddress("acimbku@gmail.com");
-                mail1.To.Add("nguyenhoangan18.25.26@gmail.com");
+        //        mail1.From = new MailAddress("acimbku@gmail.com");
+        //        mail1.To.Add("nguyenhoangan18.25.26@gmail.com");
 
-                mail1.Subject = "[QUẢN LÝ GIAO DỊCH]x[" + DateTime.Today.ToString("dd/MM/yyyy") + "]";
+        //        mail1.Subject = "[QUẢN LÝ GIAO DỊCH]x[" + DateTime.Today.ToString("dd/MM/yyyy") + "]";
 
-                string mailBody = "Chào bạn Quản trị viên,\n\nMáy In Mẫu Đơn Tự Động - ACIM thông báo về giao dịch mới:\n\n1. Người dùng: " + userInfoUI.FullName + "\n2. Mẫu đơn: " + currentMauIn.Ten + " - " + currentMauIn.fileID + "\n3. Thời gian: " + DateTime.Now.ToString("dd-MM-yyyy HH:mm tt") + "\n4. Hình thức thanh toán: THẺ SINH VIÊN\n5. Trạng thái: IN THÀNH CÔNG\n\nTrân trọng,\nMáy ACIM";
-                mail1.Body = mailBody;
-                SmtpServer.Port = 587;
-                SmtpServer.EnableSsl = true;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("acimbku@gmail.com", "acim2020");
-                SmtpServer.Send(mail1);
-            }
-            catch { }
-        }
+        //        string mailBody = "Chào bạn Quản trị viên,\n\nMáy In Mẫu Đơn Tự Động - ACIM thông báo về giao dịch mới:\n\n1. Người dùng: " + userInfoUI.FullName + "\n2. Mẫu đơn: " + currentMauIn.Ten + " - " + currentMauIn.fileID + "\n3. Thời gian: " + DateTime.Now.ToString("dd-MM-yyyy HH:mm tt") + "\n4. Hình thức thanh toán: THẺ SINH VIÊN\n5. Trạng thái: IN THÀNH CÔNG\n\nTrân trọng,\nMáy ACIM";
+        //        mail1.Body = mailBody;
+        //        SmtpServer.Port = 587;
+        //        SmtpServer.EnableSsl = true;
+        //        SmtpServer.Credentials = new System.Net.NetworkCredential("acimbku@gmail.com", "acim2020");
+        //        SmtpServer.Send(mail1);
+        //    }
+        //    catch { }
+        //}
         //sửa thông tin người dùng
         private void FinalUpdate()
         {
